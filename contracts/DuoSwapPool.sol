@@ -4,7 +4,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 import "./interfaces/IDuoSwapPool.sol";
-import "../libraries/DuoSwapMath.sol";
+import "./libraries/DuoSwapMath.sol";
 
 // SPDX-License-Identifier: MIT
 contract DuoSwapPool is IDuoSwapPool, Context {
@@ -180,6 +180,7 @@ contract DuoSwapPool is IDuoSwapPool, Context {
     
     function _getLiquiditySharesMinted(uint256 amountA, uint256 amountB, uint256 reservesA, uint256 reservesB)
         private
+        pure
         returns (uint256)
     {
         return 0; 

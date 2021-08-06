@@ -17,7 +17,6 @@ contract DuoSwapPoolFactory {
         (tokenA, tokenB) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
         require(pools[tokenA][tokenB] == DuoSwapPool(address(0)), "DuoSwap: Pool already created");
 
-        
         DuoSwapPool newPoolAddress = new DuoSwapPool(tokenA, tokenB);
         pools[tokenA][tokenB] = newPoolAddress;
         pools[tokenB][tokenA] = newPoolAddress;
