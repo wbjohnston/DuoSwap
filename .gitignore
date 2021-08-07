@@ -5,3 +5,6 @@ cache
 artifacts
 
 yarn-error.log
+.next/
+
+next-env.d.ts

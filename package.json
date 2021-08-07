@@ -3,6 +3,10 @@
   "scripts": {
     "compile": "hardhat compile",
     "lint:sol": "solhint ./contracts/**/*.sol",
+    "dev": "next dev",
+    "build:app": "next build",
+    "start": "next start",
+    "lint:app": "next lint",
     "lint": "yarn lint:ts && yarn lint:sol",
     "lint:ts": "eslint",
     "test": "hardhat test",
@@ -16,6 +20,7 @@
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.4.13",
+    "@types/react": "^17.0.16",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "chai": "^4.3.4",
@@ -31,6 +36,10 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "4.2.0"
+    "@openzeppelin/contracts": "4.2.0",
+    "antd": "^4.16.10",
+    "next": "^11.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
