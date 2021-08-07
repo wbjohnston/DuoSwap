@@ -1,5 +1,5 @@
 {
-  "license": "GPL v2",
+  "license": "GPL-2.0",
   "scripts": {
     "compile": "hardhat compile",
     "lint:sol": "solhint ./contracts/**/*.sol",
