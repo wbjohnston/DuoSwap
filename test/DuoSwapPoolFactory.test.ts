@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const { expect } = require("chai");
 const { deployERC20Pair } = require("./shared/shared");
 import { Contract } from "ethers";
 // @ts-ignore
@@ -36,7 +36,7 @@ describe('DuoSwapPoolFactory', () => {
 
         expect(pool.address).not.equals(0);
     });
-    
+
     it('cannot create a pool if it exists already', async () => {
         expect(await poolFactory.createPool(tokenA.address, tokenB.address)).to.not.equals(0);
         expect(poolFactory.createPool(tokenA.address, tokenB.address)).to.be.reverted;

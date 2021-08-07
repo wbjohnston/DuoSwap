@@ -2,7 +2,9 @@
   "license": "GPL v2",
   "scripts": {
     "compile": "hardhat compile",
-    "lint": "solhint ./contracts/**/*.sol",
+    "lint:sol": "solhint ./contracts/**/*.sol",
+    "lint": "yarn lint:ts && yarn lint:sol",
+    "lint:ts": "eslint",
     "test": "hardhat test",
     "clean": "hardhat clean",
     "chain": "hardhat node"
@@ -14,7 +16,10 @@
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.4.13",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
     "chai": "^4.3.4",
+    "eslint": "^7.32.0",
     "ethereum-waffle": "^3.0.0",
     "ethers": "^5.4.4",
     "hardhat": "^2.5.0",

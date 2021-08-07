@@ -1,6 +1,6 @@
-import {Contract} from "ethers";
+import { Contract } from "ethers";
 // @ts-ignore
-import {ethers} from "hardhat";
+import { ethers } from "hardhat";
 
 
 

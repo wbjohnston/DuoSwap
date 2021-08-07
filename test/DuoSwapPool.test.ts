@@ -2,7 +2,7 @@ const { expect } = require("chai");
 // @ts-ignore
 import { ethers } from "hardhat";
 import { Contract } from "ethers";
-import { deployERC20Pair} from "./shared/shared";
+import { deployERC20Pair } from "./shared/shared";
 
 
 async function deployDuoSwapPool(tokenAAddress: string, tokenBAddress: string): Promise<Contract> {
@@ -26,8 +26,8 @@ describe('DuoSwapPool', () => {
     let tokenA: Contract;
     let tokenB: Contract;
     let pool: Contract;
-    
-    beforeEach( async () => {
+
+    beforeEach(async () => {
         [tokenA, tokenB] = await deployERC20Pair();
         pool = await deployDuoSwapPool(tokenA.address, tokenB.address);
     })
