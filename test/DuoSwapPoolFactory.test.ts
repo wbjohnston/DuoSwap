@@ -1,5 +1,8 @@
 const {expect} = require("chai");
 const { deployERC20Pair } = require("./shared/shared");
+import { Contract } from "ethers";
+// @ts-ignore
+import { ethers } from "hardhat";
 
 async function deployDuoSwapPoolFactory() {
     const DuoSwapMath = await ethers.getContractFactory("DuoSwapMath");
@@ -20,20 +23,22 @@ async function deployDuoSwapPoolFactory() {
 
 
 describe('DuoSwapPoolFactory', () => {
-    it('can create a pool where none exists', async () => {
-        const factory = await deployDuoSwapPoolFactory();
-        const [tokenA, tokenB] = await deployERC20Pair();
+    let tokenA: Contract;
+    let tokenB: Contract;
+    let poolFactory: Contract;
+    beforeEach(async () => {
+        [tokenA, tokenB] = await deployERC20Pair();
+        poolFactory = await deployDuoSwapPoolFactory();
+    })
 
-        const pool = await factory.createPool(tokenA.address, tokenB.address);
+    it('can create a pool if it doesn\'t exist already', async () => {
+        const pool = await poolFactory.createPool(tokenA.address, tokenB.address);
 
         expect(pool.address).not.equals(0);
     });
     
     it('cannot create a pool if it exists already', async () => {
-        const factory = await deployDuoSwapPoolFactory();
-        const [tokenA, tokenB] = await deployERC20Pair();
-
-        expect(await factory.createPool(tokenA.address, tokenB.address)).not.equals(0);
-        expect(factory.createPool(tokenA.address, tokenB.address)).to.be.reverted;
+        expect(await poolFactory.createPool(tokenA.address, tokenB.address)).to.not.equals(0);
+        expect(poolFactory.createPool(tokenA.address, tokenB.address)).to.be.reverted;
     });
 })

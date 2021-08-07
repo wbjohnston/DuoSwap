@@ -1,14 +1,17 @@
+import {Contract} from "ethers";
+// @ts-ignore
+import {ethers} from "hardhat";
 
 
 
-async function deployERC20Pair() {
+export async function deployERC20Pair(): Promise<[Contract, Contract]> {
     const tokenA = await deployERC20Token("foo", "FOO");
     const tokenB = await deployERC20Token("bar", "BAR");
 
     return [tokenA, tokenB];
 }
 
-async function deployERC20Token(name, symbol) {
+export async function deployERC20Token(name: string, symbol: string): Promise<Contract> {
     const ERC20TokenFactory = await ethers.getContractFactory("ERC20");
     const token = await ERC20TokenFactory.deploy(name, symbol);
 
@@ -17,4 +20,3 @@ async function deployERC20Token(name, symbol) {
     return token;
 }
 
-module.exports = { deployERC20Token, deployERC20Pair};

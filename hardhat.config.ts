@@ -1,5 +1,9 @@
-require("@nomiclabs/hardhat-waffle");
-require("@nomiclabs/hardhat-ethers");
+import "@nomiclabs/hardhat-waffle";
+import "@nomiclabs/hardhat-ethers";
+import { task} from "hardhat/config";
+import { HardhatUserConfig } from "hardhat/types";
+// import "hardhat-typechain";
+
 
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -14,11 +18,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
-module.exports = {
+const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
@@ -32,3 +32,5 @@ module.exports = {
     version: "0.8.4"
   },
 };
+
+export default config;
