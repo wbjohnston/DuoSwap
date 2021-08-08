@@ -1,4 +1,4 @@
-pragma solidity >=0.8.0;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -11,9 +11,9 @@ contract DuoSwapPool is IDuoSwapPool, Context {
     using SafeMath for uint256;
     using DuoSwapMath for uint256;
 
-    ERC20 public immutable tokenA;
+    ERC20 public tokenA;
 
-    ERC20 public immutable tokenB;
+    ERC20 public tokenB;
 
     uint256 public totalLiqudity;
 
@@ -47,6 +47,13 @@ contract DuoSwapPool is IDuoSwapPool, Context {
         uint256 amountB,
         uint256 liquidityMinted
     );
+    event Swapped(
+        address indexed who,
+        uint256 amountFrom,
+        IERC20 tokenFrom,
+        uint256 amountT,
+        IERC20 tokenTo
+    );
 
     modifier lock() {
         require(_locked == false);
@@ -66,6 +73,7 @@ contract DuoSwapPool is IDuoSwapPool, Context {
         tokenB = tokenB_;
     }
 
+    /// @inheritdoc IDuoSwapPool
     function initialize(uint256 amountA, uint256 amountB)
         external
         override
@@ -94,6 +102,7 @@ contract DuoSwapPool is IDuoSwapPool, Context {
         return liquidityShares;
     }
 
+    /// @inheritdoc IDuoSwapPool
     function withdraw(uint256 liquidityShares)
         external
         override
@@ -127,6 +136,7 @@ contract DuoSwapPool is IDuoSwapPool, Context {
         return (amountA, amountB);
     }
 
+    /// @inheritdoc IDuoSwapPool
     function deposit(uint256 amountA, uint256 amountB)
         external
         override
@@ -152,6 +162,7 @@ contract DuoSwapPool is IDuoSwapPool, Context {
         return liquidityShares;
     }
 
+    /// @inheritdoc IDuoSwapPool
     function swapAToB(uint256 amount)
         external
         override
@@ -161,6 +172,7 @@ contract DuoSwapPool is IDuoSwapPool, Context {
         return _swap(amount, tokenA, tokenB);
     }
 
+    /// @inheritdoc IDuoSwapPool
     function swapBToA(uint256 amount)
         external
         override
@@ -201,6 +213,14 @@ contract DuoSwapPool is IDuoSwapPool, Context {
                 _msgSender(),
                 outputTokenAmount
             )
+        );
+
+        emit Swapped(
+            _msgSender(),
+            amount,
+            inputToken,
+            outputTokenAmount,
+            outputToken
         );
 
         return outputTokenAmount;
