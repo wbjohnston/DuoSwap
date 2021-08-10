@@ -1,18 +1,15 @@
 import React from "react"
-import { Layout, Button, Menu, Typography, Row, Col } from 'antd';
-const { Header, Content, Footer } = Layout;
+import { Layout, Button, Typography, Row, Col } from 'antd';
+const { Header, Content } = Layout;
 import { Component } from "react";
-import Image from "next/image";
-// @ts-ignore
-import Logo from "../public/logo.svg"
-import { useEthers, useEtherBalance } from "@usedapp/core";
-import { BigNumber, ethers } from 'ethers'
-import Icon from "@ant-design/icons/lib/components/Icon";
+import { useEthers, useEtherBalance, Web3Ethers } from "@usedapp/core";
+import { ethers } from 'ethers'
+import { ReactElement } from "react";
 
 interface WalletConnectionButtonProps {
-    activateWallet: any;
-    deactivateWallet: any;
-    account: string | null | undefined;
+    activateWallet: Web3Ethers['activateBrowserWallet'];
+    deactivateWallet: Web3Ethers['deactivate'];
+    account: Web3Ethers['account'];
 }
 
 function WalletManagementMenu({ activateWallet, deactivateWallet: deactiveWallet, account }: WalletConnectionButtonProps) {
@@ -40,15 +37,15 @@ function WalletManagementMenuWithWalletConnected({ deactivateWallet, account }: 
 
 }
 
-function WalletManagementMenuWithWalletDisconnected({ activateWallet }: any) {
+function WalletManagementMenuWithWalletDisconnected({ activateWallet }: { activateWallet: Web3Ethers['activateBrowserWallet'] }) {
     return <Row justify="space-between">
         <Col>
-            <Button type="primary" onClick={activateWallet} >Connect Wallet</Button>
+            <Button type="primary" onClick={() => activateWallet()} >Connect Wallet</Button>
         </Col>
     </Row>
 }
 
-function NoWalletConnectionScreen({ ...props }) {
+function NoWalletConnectionScreen() {
     // return <div>Connect to your wallet to use Hotdog Swap</div>
 
     return <Row justify="space-around" align="middle">
@@ -58,7 +55,7 @@ function NoWalletConnectionScreen({ ...props }) {
     </Row>
 }
 
-export default function DuoSwapLayout({ children }: { children: Component | Component[] }) {
+export default function DuoSwapLayout({ children }: { children: Component | Component[] }): ReactElement {
     const { activateBrowserWallet, deactivate, account } = useEthers();
 
     return <Layout className="layout">

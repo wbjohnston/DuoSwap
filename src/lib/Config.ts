@@ -4,7 +4,7 @@ import { ChainId, Config } from "@usedapp/core";
 
 export interface AppConfig {
     infuraProjectId: string;
-    hotdogSwapContractAddress: string;
+    hotdogSwapPoolFactoryContractAddress: string;
 }
 
 export function getUseDappProviderConfigFromConfig(config: AppConfig): Config {
@@ -21,7 +21,7 @@ export function getUseDappProviderConfigFromConfig(config: AppConfig): Config {
 export function getAppConfigFromEnvironment(overrides?: Partial<AppConfig>): AppConfig {
     return {
         infuraProjectId: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID as string, // TODO: error handling
-        hotdogSwapContractAddress: process.env.NEXT_PUBLIC_HOTDOG_SWAP_CONTRACT_ADDRESS as string,
+        hotdogSwapPoolFactoryContractAddress: process.env.NEXT_PUBLIC_HOTDOG_SWAP_POOL_FACTORY_CONTRACT_ADDRESS as string,
         ...overrides
     }
 }
